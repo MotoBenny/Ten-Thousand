@@ -23,8 +23,8 @@ class GameLogic:
         score = 0
 
         if len(count) is 6:  # covers us for straight
-            score += 1500
-            return score
+            # score += 1500
+            return 1500
 
         if count == [(5, 2)]:
             return 100
@@ -116,13 +116,21 @@ class GameLogic:
             return 0
 
 
-class Banker():
+class Banker(GameLogic):
+    shelf_holding = 0
+    total = 0
 
-    def shelf(self, points):
-        pass
+    def __init__(self):
+        self.shelved = 0
+        self.balance = 0
 
-    def bank():
-        pass
+    def shelf(self, score):
+        self.shelved += score
+        return
+
+    def bank(self):
+        self.balance = self.shelved
+        self.shelved = 0
 
     def clear_shelf(self):
-        pass
+        self.shelved = 0
