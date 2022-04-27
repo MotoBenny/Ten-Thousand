@@ -9,7 +9,6 @@
 import pytest
 from ten_thousand.game_logic import GameLogic
 
-pytestmark = [pytest.mark.version_1]
 
 
 def test_1_dice():

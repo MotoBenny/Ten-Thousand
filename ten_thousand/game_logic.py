@@ -19,61 +19,103 @@ class GameLogic:
         """
         Calculates the score based on a given dice roll.
         """
+        # Borrowed this code from Eden to test my funcitonality
         score = 0
         counts = Counter(roll)
-        fives_used = False
-        ones_used = False
+        counts_pairs = Counter(roll).most_common()
+        if len(roll) == 0:
+            return score
 
-        for num in range(1, 6 + 1):
-            occurance_count = counts[num]
+        if len(counts_pairs) == 6:
+            GameLogic.how_many = 6
+            return 1500
 
-            if len(counts) is 6:
-                score += 1500
-                return score
+        pair = 0
+        if len(roll) == 6 and len(counts_pairs) == 3:
+            for i in range(3):
+                if counts_pairs[i][1] == 2:
+                    pair += 1
+        if pair == 3:
+            GameLogic.how_many = 6
+            return 1500
 
-            if len(counts) is 3:
-                score += 1500
-                return score
-
-            if len(counts) is 2:
-                score += 1200
-                return score
-
-            if occurance_count >= 3:
-
-                value_add = num * 100
-                score = value_add
-                bonus_occurances = occurance_count - 3
-                score += bonus_occurances * value_add
-
-                if num == 1:
-                    ones_used = True
-                    score *= 10
-
-                if num == 5:
-                    fives_used = True
-            # use this
-        if not ones_used:
-            score += counts[1] * 100
-
-        if not fives_used:
-            score += counts[5] * 50
+        else:
+            for i in range(len(counts_pairs)):
+                number = counts_pairs[i][0]
+                common = counts_pairs[i][1]
+                base = number * 100
+                if number == 1:
+                    if common > 2:
+                        base = number * 1000
+                    else:
+                        score += base * common
+                if number == 5:
+                    if common < 3:
+                        score += number * 10 * common
+                if common > 2:
+                    score += base * (common - 2)
         return score
+        # End of borrowed code
+
+
+
+
+        # my code below this line
+        # score = 0
+        # counts = Counter(roll)
+        # fives_used = False
+        # ones_used = False
+        #
+        # for num in range(1, 6 + 1):
+        #     occurance_count = counts[num]
+        #
+        #     if len(counts) == 6:
+        #         score += 1500
+        #         return score
+        #
+        #     if len(counts) == 3:
+        #         score += 1500
+        #         return score
+        #
+        #     if len(counts) == 2:
+        #         score += 1200
+        #         return score
+        #
+        #     if occurance_count >= 3:
+        #
+        #         value_add = num * 100
+        #         score = value_add
+        #         bonus_occurances = occurance_count - 3
+        #         score += bonus_occurances * value_add
+        #
+        #         if num == 1:
+        #             ones_used = True
+        #             score *= 10
+        #
+        #         if num == 5:
+        #             fives_used = True
+        #     # use this
+        # if not ones_used:
+        #     score += counts[1] * 100
+        #
+        # if not fives_used:
+        #     score += counts[5] * 50
+        # return score
 
 
 class Banker(GameLogic):
 
     def __init__(self):
-        self.balance = 0
-        self.shelved = 0
+        self.balance = 0 # 200
+        self.shelved = 0 # 200
 
     def bank(self):
-        amount_deposited = self.shelved
-        self.balance += self.shelved
+        amount_deposited = self.shelved # 200
+        self.balance += self.shelved # 200
         self.shelved = 0
-        return amount_deposited
+        return amount_deposited # 200
 
-    def shelf(self, amt):
+    def shelf(self, amt): # for amt = 200
         self.shelved += amt
 
     def clear_shelf(self):
