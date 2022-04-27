@@ -1,4 +1,4 @@
 Welcome to Ten Thousand
 (y)es to play or (n)o to decline
 > n
-OK. Maybe another time Didodo
+OK. Maybe another time
