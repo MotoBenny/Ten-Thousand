@@ -19,7 +19,7 @@ class GameLogic:
         """
         Calculates the score based on a given dice roll.
         """
-        # Borrowed this code from Eden to test my funcitonality
+        # Borrowed this code from Eden to test my functionality
         score = 0
         counts = Counter(roll)
         counts_pairs = Counter(roll).most_common()
