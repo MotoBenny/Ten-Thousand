@@ -3,6 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="5ee8e48b-8bc2-4f12-b321-e2de8b1ad712" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ten_thousand/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/ten_thousand/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ten_thousand/game_logic.py" beforeDir="false" afterPath="$PROJECT_DIR$/ten_thousand/game_logic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/version_3/test_get_scorers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/version_3/test_get_scorers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/version_3/test_sim_advanced.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/version_3/test_sim_advanced.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/version_3/test_validate_keepers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/version_3/test_validate_keepers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +164,7 @@
       <workItem from="1651076026400" duration="3000" />
       <workItem from="1651084108683" duration="682000" />
       <workItem from="1651094361524" duration="136000" />
-      <workItem from="1651095662256" duration="310000" />
+      <workItem from="1651095662256" duration="5983000" />
     </task>
     <servers />
   </component>

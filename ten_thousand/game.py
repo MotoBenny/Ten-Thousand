@@ -21,17 +21,20 @@ class Game:
         # Could I use Args in my function declaration so i dont have to be so specific on my params?
         # running total when the user banks their score or keeps dice gets added incorrectly.
         # example. user rolls > keeps 15 for 150 unbanked points > rolls again, stores 551 for 350pts,
-        # banked points is now 500pts, but shows as 350 in print after second roll,
+        # banked points is now 500pts, but shows as 350 in print after second roll,py
         # if banked correctly banks 500pts
-
+        valid_response = False
         round_num += 1
 
-        print(f"Starting round {round_num}")
+        print(f"Starting round {round_num}") # starting round one
         print(f"Rolling {die} dice...")
         roll_input = ' '.join(map(str, (roller(die))))
-        print(f"*** {roll_input} ***")
-        print("Enter dice to keep, or (q)uit:")
-        response = input("> ")
+
+        while valid_response is False:
+            print(f"*** {roll_input} ***")
+            print("Enter dice to keep, or (q)uit:")
+            response = input("> ")
+            valid_response = GameLogic.validate_keepers(roll_input, response)
 
         if response == "q":
             print(f"Thanks for playing. You earned {total} points")
@@ -61,7 +64,7 @@ class Game:
                 print("Thank you for playing Ten thousand > Powered by AWS")
                 sys.exit()
 
-    def play(self, roller=GameLogic.roll_dice):
+    def play(self, roller=GameLogic.roll_dice, validate_keepers=GameLogic.validate_keepers):
         round_num = 0
         total = 0
         die = 6
