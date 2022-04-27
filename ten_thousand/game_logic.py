@@ -16,17 +16,21 @@ class GameLogic:
 
     @staticmethod
     def validate_keepers(roll, user_input): # if we take in roll_input it will be a clean string
-        roll_stripped = roll.replace(' ','')
-        roll_list = [int(char) for char in roll_stripped] # "5 2 3 5 4 2" > [ 5, 2, 3, 5, 4, 2 ]
-        user_input_list = [int(char) for char in user_input if char.isdigit()]  # 555 > [ 5, 5, 5] [(5, 3)]
-        for char in user_input_list:
-            count_input = user_input_list.count(char)
-            count_roll = roll_list.count(char)
-            if count_input > count_roll:
-                print("Cheater!!! Or possibly made a typo...")
-                return False # if response invalid flip flag.
-            else:
-                return True
+        if user_input == "q":
+            return True
+        else:
+            roll_str = ''.join(map(str, roll))
+            roll_stripped = roll_str.replace(' ','')
+            roll_list = [int(char) for char in roll_stripped] # "5 2 3 5 4 2" > [ 5, 2, 3, 5, 4, 2 ]
+            user_input_list = [int(char) for char in user_input]  # 555 > [ 5, 5, 5] [(5, 3)]  if char.isdigit()
+            for char in user_input_list:
+                count_input = user_input_list.count(char)
+                count_roll = roll_list.count(char)
+                if count_input > count_roll:
+                    print("Cheater!!! Or possibly made a typo...")
+                    return False # if response invalid flip flag.
+                else:
+                    return True
 
     @staticmethod
     def calculate_score(roll):
