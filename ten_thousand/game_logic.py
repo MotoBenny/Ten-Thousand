@@ -15,14 +15,26 @@ class GameLogic:
         # return tuple(sample(range(1, 6 + 1), num_dice))
 
     @staticmethod
+    def get_scorers(dice):
+        dice_list = []
+        for num in dice:
+            if num == 1:
+                dice_list.append(num)
+            elif num == 5:
+                dice_list.append(num)
+        return tuple(dice_list)
+
+    @staticmethod
     def validate_keepers(roll, user_input): # if we take in roll_input it will be a clean string
         if user_input == "q":
             return True
         else:
             roll_str = ''.join(map(str, roll))
-            roll_stripped = roll_str.replace(' ','')
-            roll_list = [int(char) for char in roll_stripped] # "5 2 3 5 4 2" > [ 5, 2, 3, 5, 4, 2 ]
-            user_input_list = [int(char) for char in user_input]  # 555 > [ 5, 5, 5] [(5, 3)]  if char.isdigit()
+            roll_stripped = roll_str.replace(' ', '')
+            input_str = ''.join(map(str, user_input))
+            input_stripped = input_str.replace(" ", '')
+            roll_list = [int(char) for char in roll_stripped]
+            user_input_list = [int(char) for char in input_stripped]
             for char in user_input_list:
                 count_input = user_input_list.count(char)
                 count_roll = roll_list.count(char)
@@ -37,7 +49,6 @@ class GameLogic:
         """
         Calculates the score based on a given dice roll.
         """
-        # Borrowed this code from Eden to test my functionality
         score = 0
         counts = Counter(roll)
         counts_pairs = Counter(roll).most_common()
@@ -73,52 +84,6 @@ class GameLogic:
                 if common > 2:
                     score += base * (common - 2)
         return score
-        # End of borrowed code
-
-
-
-
-        # my code below this line
-        # score = 0
-        # counts = Counter(roll)
-        # fives_used = False
-        # ones_used = False
-        #
-        # for num in range(1, 6 + 1):
-        #     occurance_count = counts[num]
-        #
-        #     if len(counts) == 6:
-        #         score += 1500
-        #         return score
-        #
-        #     if len(counts) == 3:
-        #         score += 1500
-        #         return score
-        #
-        #     if len(counts) == 2:
-        #         score += 1200
-        #         return score
-        #
-        #     if occurance_count >= 3:
-        #
-        #         value_add = num * 100
-        #         score = value_add
-        #         bonus_occurances = occurance_count - 3
-        #         score += bonus_occurances * value_add
-        #
-        #         if num == 1:
-        #             ones_used = True
-        #             score *= 10
-        #
-        #         if num == 5:
-        #             fives_used = True
-        #     # use this
-        # if not ones_used:
-        #     score += counts[1] * 100
-        #
-        # if not fives_used:
-        #     score += counts[5] * 50
-        # return score
 
 
 class Banker(GameLogic):
