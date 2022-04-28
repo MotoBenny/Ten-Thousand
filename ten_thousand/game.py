@@ -37,7 +37,6 @@ class Game:
 
         while self.valid_response is False:
             # roll = list(roller(die))
-            self.roll_input = ' '.join(map(str, (roller(die))))
             print(f"*** {self.roll_input} ***")
             print("Enter dice to keep, or (q)uit:")
             response = input("> ")
@@ -64,6 +63,7 @@ class Game:
                 # self.bank.shelf(local_total)
                 self.kept_total = local_total
                 self.valid_response = False
+                self.roll_input = ' '.join(map(str, (roller(die))))
                 self.play_round(total, self.kept_total, round_num, dice, roller)
 
             elif response == "b":
