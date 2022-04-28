@@ -89,7 +89,7 @@ class GameLogic:
 class Banker(GameLogic):
 
     def __init__(self):
-        self.balance = 0 # 200
+        self.balance = 0 #
         self.shelved = 0 # 200
 
     def bank(self):
