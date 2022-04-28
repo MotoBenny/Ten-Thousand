@@ -52,9 +52,9 @@ class Game:
             kept_die = [int(x) for x in str(response)]
             dice = die - len(kept_die)
             dice_to_keep = tuple(kept_die)
-            local_total = GameLogic.calculate_score(dice_to_keep)
-
-            # local_total += self.kept_total #200
+            local_total += GameLogic.calculate_score(dice_to_keep)
+            print(local_total)
+            local_total += self.kept_total #200
             print(f"You have {local_total} unbanked points and {dice} dice remaining")
             print("(r)oll again, (b)ank your points or (q)uit:")
             response = input("> ") # 100 pts unbanked. input r
@@ -65,7 +65,6 @@ class Game:
                 self.kept_total = local_total
                 self.valid_response = False
                 self.play_round(total, self.kept_total, round_num, dice, roller)
-                # (self, total, local_total, round_num, die, roller)
 
             elif response == "b":
                 # local_total -= self.kept_total
@@ -76,6 +75,7 @@ class Game:
                 print(f"You banked {local_total} points in round {round_num}")
                 print(f"Total score is {total} points")
                 local_total = 0
+                self.kept_total = 0
                 die = 6
                 round_num += 1
                 self.play_round(total, local_total, round_num, die, roller)
