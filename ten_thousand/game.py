@@ -11,6 +11,16 @@ class Game:
         self.new_round = True
         self.roll_input = ""
 
+    # def check_for_zilch(self, dice):
+    #     zilch_print = (
+    #     """
+    #     ****************************************
+    #     **        Zilch!!! Round over         **
+    #     ****************************************
+    #     """)
+    #     if GameLogic.calculate_score(tuple(dice)) == 0:
+    #         return print(zilch_print)
+
     def play_round(self, total, local_total, round_num, die, roller):
         """
         Function handles the users input, to play another round.
@@ -49,21 +59,23 @@ class Game:
 
         else:
             kept_die = [int(x) for x in str(response)]
-            dice = die - len(kept_die)
+            # print(kept_die)
+            if len(kept_die) == 6:
+                dice = 6
+            else:
+                dice = die - len(kept_die)
             dice_to_keep = tuple(kept_die)
             local_total += GameLogic.calculate_score(dice_to_keep)
-            print(local_total)
             local_total += self.kept_total #200
             print(f"You have {local_total} unbanked points and {dice} dice remaining")
             print("(r)oll again, (b)ank your points or (q)uit:")
-            response = input("> ") # 100 pts unbanked. input r
+            response = input("> ")
 
             if response == "r":
                 # reseting dice to 6 if dice = 0
-                # self.bank.shelf(local_total)
                 self.kept_total = local_total
                 self.valid_response = False
-                self.roll_input = ' '.join(map(str, (roller(die))))
+                self.roll_input = ' '.join(map(str, (roller(dice))))
                 self.play_round(total, self.kept_total, round_num, dice, roller)
 
             elif response == "b":
