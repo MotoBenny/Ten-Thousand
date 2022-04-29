@@ -37,73 +37,114 @@ class Game:
         # example. user rolls > keeps 15 for 150 unbanked points > rolls again, stores 551 for 350pts,
         # banked points is now 500pts, but shows as 350 in print after second roll,py
         # if banked correctly banks 500pts
-        self.valid_response = False
+        self.valid_response = False # setting valid response to false so user is prompted to keep some dice
+
         local_total = 0
+
         while self.new_round is True:
-            print(f"Starting round {round_num}") # starting round one
+
+            print(f"Starting round {round_num}")
+
             print(f"Rolling {die} dice...")
+
             self.roll_input = ' '.join(map(str, (roller(die))))
+
             self.new_round = False
+
 
         while self.valid_response is False:
-            # roll = list(roller(die))
+
             print(f"*** {self.roll_input} ***")
+
             print("Enter dice to keep, or (q)uit:")
+
             response = input("> ")
+
             self.new_round = False
+
             self.valid_response = GameLogic.validate_keepers(self.roll_input, response)
 
+
         if response == "q":
+
             print(f"Thanks for playing. You earned {total} points")
+
             sys.exit()
 
+
         else:
+
             kept_die = [int(x) for x in str(response)]
-            # print(kept_die)
+
             if len(kept_die) == 6:
+
                 dice = 6
+
             else:
+
                 dice = die - len(kept_die)
-            dice_to_keep = tuple(kept_die)
-            local_total += GameLogic.calculate_score(dice_to_keep)
-            local_total += self.kept_total #200
+
+            local_total += GameLogic.calculate_score(tuple(kept_die))
+
+            local_total += self.kept_total
+            print(kept_die)
+            print(dice)
             print(f"You have {local_total} unbanked points and {dice} dice remaining")
+
             print("(r)oll again, (b)ank your points or (q)uit:")
+
             response = input("> ")
 
+
             if response == "r":
-                # reseting dice to 6 if dice = 0
+
                 self.kept_total = local_total
+
                 self.valid_response = False
+
                 self.roll_input = ' '.join(map(str, (roller(dice))))
+
                 self.play_round(total, self.kept_total, round_num, dice, roller)
 
+
             elif response == "b":
-                # local_total -= self.kept_total
+
                 self.bank.shelf(local_total)
+
                 local_total = self.bank.bank()
+
                 total += local_total
+
                 self.new_round = True
+
                 print(f"You banked {local_total} points in round {round_num}")
+
                 print(f"Total score is {total} points")
+
                 local_total = 0
+
                 self.kept_total = 0
+
                 die = 6
+
                 round_num += 1
+
                 self.play_round(total, local_total, round_num, die, roller)
+
             else:
+
                 print(f"Thanks for playing. You earned {total} points")
+
                 sys.exit()
 
-    # @staticmethod
-    # def remove_dice(kept_die,):
-
     def play(self, roller=GameLogic.roll_dice):
+        # Sets variable values at game start
         round_num = 1
         total = 0
         die = 6
         local_total = 0
 
+        # Gets user input to start game or not.
         print("Welcome to Ten Thousand")
         print("(y)es to play or (n)o to decline")
         response = input("> ")
@@ -111,6 +152,7 @@ class Game:
         if response == "n":
             print("OK. Maybe another time")
         if response == 'y':
+            # Calls play_round function beginning gameplay
             self.play_round(total, local_total, round_num, die, roller)
 
 

@@ -24,33 +24,17 @@ class GameLogic:
                 dice_list.append(num)
         return tuple(dice_list)
 
-    @staticmethod
-    def validate_keepers(roll, user_input): # if we take in roll_input it will be a clean string
-        if user_input == "q": # user can say 12345 for a roll of 42631
-            return True
-        else:
-            kept_counter = Counter(user_input)
-            roll_counter = Counter(roll)
-            result = kept_counter - roll_counter
-            if not result: # this
+    @staticmethod # if we take in roll_input it will be a clean string
+    def validate_keepers(roll, user_input):
+        striped_roll = roll.replace(" ",'')
+        roll_most_common = Counter(striped_roll).most_common()
+        input_most_common = Counter(user_input).most_common()
+        for i in range(len(input_most_common)):
+            if input_most_common[i][1] > roll_most_common[i][1]:
                 print("Cheater!!! Or possibly made a typo...")
-                return result
-            return not result
-
-            # roll_str = ''.join(map(str, roll))
-            # roll_stripped = roll_str.replace(' ', '')
-            # input_str = ''.join(map(str, user_input))
-            # input_stripped = input_str.replace(" ", '')
-            # roll_list = [int(char) for char in roll_stripped]
-            # user_input_list = [int(char) for char in input_stripped]
-            # for char in user_input_list:
-            #     count_input = user_input_list.count(char)
-            #     count_roll = roll_list.count(char)
-            #     if count_input > count_roll:
-            #         print("Cheater!!! Or possibly made a typo...")
-            #         return False # if response invalid flip flag.
-            #     else:
-            #         return True
+                return False
+            else:
+                return True
 
     @staticmethod
     def calculate_score(roll):
