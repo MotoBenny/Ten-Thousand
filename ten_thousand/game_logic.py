@@ -44,8 +44,9 @@ class GameLogic:
         """
         Calculates the score based on a given dice roll.
         """
+        roll = tuple(roll)
         score = 0
-        counts = Counter(roll)
+        # counts = Counter(roll)
         counts_pairs = Counter(roll).most_common()
         if len(roll) == 0:
             return score
@@ -53,9 +54,6 @@ class GameLogic:
         if len(counts_pairs) == 6:
             GameLogic.how_many = 6
             return 1500
-
-        # print(roll)
-        # print(counts_pairs)
 
         pair = 0
         if len(roll) == 6 and len(counts_pairs) == 3:
