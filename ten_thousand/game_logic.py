@@ -44,7 +44,8 @@ class GameLogic:
         """
         Calculates the score based on a given dice roll.
         """
-        roll = tuple(roll)
+        if roll is None:
+            roll = [0]
         score = 0
         # counts = Counter(roll)
         counts_pairs = Counter(roll).most_common()
