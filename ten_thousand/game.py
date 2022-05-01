@@ -13,13 +13,13 @@ class Game:
         self.round_total = 0  # used in logging
         self.round_num = 1
         self.dice_num = 6
-        self.roll = [] # [1,5,6,3,2,1]
+        self.roll = []  # [1,5,6,3,2,1]
         self.in_round = False
         self.in_game = True
         self.game_lost = False
         self.user_kept = []
         self.roller = 0
-
+        self.zilch = False
     # def log_vars(self, function):
     #     """ Logging function to track state of variables/attributes as game runs """
     #     logging.INFO(f"{function} function called")
@@ -48,24 +48,18 @@ class Game:
 
     def round(self):
         """
-        Contains all function calls and round flow logic, When this round ends, we incriment the round num and loop back
+        Contains all function calls and round flow logic, When this round ends, we increment the round num and loop back
         :return:
         """
         self.print_start_round()
         self.in_round = True
         while self.in_round:
             self.handle_roll()
+            # print("after handle roll")
+            if self.zilch:
+                # print("within self.zilch if")
+                break
             self.get_user_kept()
-            # self.continue_round()
-            # self.handle_input()
-
-        # self.print_start_round()
-        # self.handle_roll()
-        # self.get_user_kept()
-        # self.continue_round()
-        # self.handle_input()
-
-        # The round is over, so we increment the round
         self.increment_round_nun()
 
     def increment_round_nun(self):
@@ -133,13 +127,19 @@ class Game:
         Checks users roll for zilch and handles results of zilch
         :return:
         """
+        # print(GameLogic.calculate_score(self.roll))
         # self.log_vars("handle zilch")
         if GameLogic.calculate_score(self.roll) == 0:
             # roll is a zilch
-            self.bank.clear_shelf() # user loses all unbanked points from round
+            self.bank.clear_shelf()  # user loses all unbanked points from round
             print("****************************************")
             print("**        Zilch!!! Round over         **")
             print("****************************************")
+            # self.game_lost = True
+            self.round_total = 0
+            self.bank.clear_shelf()
+            self.handle_bank()
+            self.zilch = True
 
     def handle_roll(self):
         """
@@ -147,12 +147,11 @@ class Game:
         and saves attribute self.roll_string as formatted roll.
         :return:
         """
-        # self.log_vars("handle roll")
-        # print(">>>>> handle Roll function call <<<<<")
         self.roll = self.roller(self.dice_num)
         self.roll_string = ' '.join(map(str, self.roll))
         print(f"Rolling {self.dice_num} dice...")
         print(f"*** {self.roll_string} ***")
+        self.handle_zilch()
 
     def continue_round(self):
         """
@@ -213,6 +212,9 @@ class Game:
         response = input("> ")
         if response == "r":
             self.handle_roll()
+            if self.zilch:
+                # print("zilch true inside handle_input")
+                pass
             self.get_user_kept()
         elif response == "b":
             self.handle_bank()
