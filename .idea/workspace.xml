@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ee8e48b-8bc2-4f12-b321-e2de8b1ad712" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ten_thousand/Depreciated versions/game_old.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ten_thousand/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/ten_thousand/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ten_thousand/game_logic.py" beforeDir="false" afterPath="$PROJECT_DIR$/ten_thousand/game_logic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/version_2/test_sim_basic.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/version_2/test_sim_basic.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,12 +56,13 @@
       <recent name="$PROJECT_DIR$/tests/version_2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ten_thousand/Depreciated versions" />
       <recent name="$PROJECT_DIR$/ten_thousand" />
       <recent name="$PROJECT_DIR$/tests/version_1" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.game">
-    <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.game_old">
+    <configuration name="game_old" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ten-thousand" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -72,7 +75,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ten_thousand/game.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ten_thousand/Depreciated versions/game_old.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -145,7 +148,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.game" />
+        <item itemvalue="Python.game_old" />
         <item itemvalue="Python tests.Python tests in test_sim_basic.py" />
         <item itemvalue="Python tests.Python tests for test_sim_basic.test_single_bank" />
         <item itemvalue="Python tests.Python tests for test_calculate_score.test_all" />
@@ -172,7 +175,9 @@
       <workItem from="1651118768453" duration="1237000" />
       <workItem from="1651120011306" duration="190000" />
       <workItem from="1651120403384" duration="405000" />
-      <workItem from="1651178248826" duration="15151000" />
+      <workItem from="1651178248826" duration="15718000" />
+      <workItem from="1651246899636" duration="600000" />
+      <workItem from="1651350552595" duration="8868000" />
     </task>
     <servers />
   </component>

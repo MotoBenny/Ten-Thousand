@@ -3,6 +3,9 @@ from random import randint, sample
 from collections import Counter
 
 
+# basicConfig(level=logging.INFO, filename="Logic.log", filemode='w')
+
+
 class GameLogic:
 
     def __init__(self):
@@ -24,10 +27,10 @@ class GameLogic:
                 dice_list.append(num)
         return tuple(dice_list)
 
-    @staticmethod # if we take in roll_input it will be a clean string
+    @staticmethod
     def validate_keepers(roll, user_input):
-        striped_roll = roll.replace(" ",'')
-        roll_most_common = Counter(striped_roll).most_common()
+        # striped_roll = roll.replace(" ",'')
+        roll_most_common = Counter(roll).most_common()
         input_most_common = Counter(user_input).most_common()
         for i in range(len(input_most_common)):
             if input_most_common[i][1] > roll_most_common[i][1]:
@@ -50,6 +53,9 @@ class GameLogic:
         if len(counts_pairs) == 6:
             GameLogic.how_many = 6
             return 1500
+
+        # print(roll)
+        # print(counts_pairs)
 
         pair = 0
         if len(roll) == 6 and len(counts_pairs) == 3:
@@ -81,16 +87,16 @@ class GameLogic:
 class Banker(GameLogic):
 
     def __init__(self):
-        self.balance = 0 #
-        self.shelved = 0 # 200
+        self.balance = 0
+        self.shelved = 0
 
     def bank(self):
-        amount_deposited = self.shelved # 200
-        self.balance += self.shelved # 200
+        amount_deposited = self.shelved
+        self.balance += self.shelved
         self.shelved = 0
-        return amount_deposited # 200
+        return amount_deposited
 
-    def shelf(self, amt): # for amt = 200
+    def shelf(self, amt):
         self.shelved += amt
 
     def clear_shelf(self):
