@@ -1,8 +1,5 @@
-import logging
 import sys
 from ten_thousand.game_logic import GameLogic, Banker
-
-# logging.basicConfig(level=logging.INFO, filename="Game.log", filemode='w')
 
 
 class Game:
@@ -16,7 +13,7 @@ class Game:
         self.roll = []  # [1,5,6,3,2,1]
         self.in_round = False
         self.in_game = True
-        self.game_lost = False
+        self.round_lost = False
         self.user_kept = []
         self.roller = 0
         self.zilch = False
@@ -35,41 +32,20 @@ class Game:
         :return:
         """
         self.in_round = False
-        # self.log_vars("play game")
         self.roller = roller
         self.game_lost = False
         while self.in_game:
             self.welcome_to_game()
             while True:
                 self.play_turn()
-                self.handle_bank()
                 self.increment_round_nun()
         print("game over")
-        #     while self.in_round:
-        # round function call here.
-
-    # def round(self):
-    #     """
-    #     Contains all function calls and round flow logic, When this round ends, we increment the round num and loop back
-    #     :return:
-    #     """
-    #     self.print_start_round()
-    #     self.in_round = True
-    #     while self.in_round:
-    #         self.handle_roll()
-    #         # print("after handle roll")
-    #         if self.zilch:
-    #             # print("within self.zilch if")
-    #             break
-    #         self.get_user_kept()
-    #     self.increment_round_nun()
 
     def increment_round_nun(self):
         """
         increments the round num attribute
         :return:
         """
-        # print(">>>>> increment round function call <<<<<")
         self.round_num += 1
 
     def welcome_to_game(self):
@@ -78,12 +54,10 @@ class Game:
         exits application if user inputs n for no
         :return:
         """
-        # self.log_vars("welcome to game")
         print("Welcome to Ten Thousand")
         print("(y)es to play or (n)o to decline")
         response = input("> ")
         if response == 'n':
-            # begin a round
             print("OK. Maybe another time")
             sys.exit()
         elif response == 'y':
@@ -98,46 +72,27 @@ class Game:
         Thanks player for playing, displays points earned in gameplay
         :return:
         """
-        # print(">>>>> Thanks for playing function call <<<<<")
         print(f"Thanks for playing. You earned {self.game_total} points")
         sys.exit()
-        # self.log_vars("thanks for playing")
 
     def print_start_round(self):
         """
         displays to the console on new round start
         :return:
         """
-        # print(">>>>> print start round function call <<<<<")
-        # self.log_vars("print round")
         print(f"Starting round {self.round_num}")
-
-    def end_current_round(self):
-        """
-        performs bank of points, shows end of round message with round and game total
-        :return:
-        """
-        # self.log_vars("end current round")
-        # print(">>>>> end current round function call <<<<<")
-        round_points = self.bank.bank()
-        print(f"You banked {round_points} points in round {self.round_num}")
-        print(f"Total score is {self.bank.balance} points")
-        self.game_total += round_points
 
     def handle_zilch(self):
         """
         Checks users roll for zilch and handles results of zilch
         :return:
         """
-        # print(GameLogic.calculate_score(self.roll))
-        # self.log_vars("handle zilch")
         if GameLogic.calculate_score(self.roll) == 0:
-            # roll is a zilch
-            self.bank.clear_shelf()  # user loses all unbanked points from round
+            self.bank.clear_shelf()
             print("****************************************")
             print("**        Zilch!!! Round over         **")
             print("****************************************")
-            # self.game_lost = True
+
             self.round_total = 0
             self.bank.clear_shelf()
             self.handle_bank()
@@ -153,43 +108,31 @@ class Game:
         self.roll_string = ' '.join(map(str, self.roll))
         print(f"Rolling {self.dice_num} dice...")
         print(f"*** {self.roll_string} ***")
-        # self.handle_zilch()
 
     def continue_round(self):
         """
 
         :return:
         """
-        # print(">>>>> Continue Round Function call <<<<<")
         print(f"You have {self.round_total} unbanked points and {self.dice_num} dice remaining")
         print("(r)oll again, (b)ank your points or (q)uit:")
-        # self.handle_input()
-
-    def get_user_kept(self):
-        """
-
-        :return:
-        """
-        # print(">>>>> get user kept function call <<<<<")
-        # self.log_vars("get user kept")
-        user_kept = self.validate_kept()
-        self.round_total += GameLogic.calculate_score(user_kept)
-        self.bank.shelf(self.round_total)
-        self.dice_num = self.dice_num - len(user_kept)
-        # self.continue_round()
 
     def get_dice_to_keep(self):
         print("Enter dice to keep, or (q)uit:")
         response = input("> ")
+        if response == 'q':
+            self.thanks_for_playing()
         user_kept = []
         for char in response:
             if char.isnumeric():
                 user_kept.append(int(char))
         self.user_kept = user_kept
+        return self.validate_kept()
 
     def validate_kept(self):
-
         if GameLogic.validate_keepers(self.roll, self.user_kept):
+            self.round_total += GameLogic.calculate_score(self.user_kept)
+            self.dice_num = self.dice_num - len(self.user_kept)
             return self.user_kept
         else:
             print("Cheater!!! Or possibly made a typo...")
@@ -198,50 +141,40 @@ class Game:
 
     def handle_bank(self):
         """"""
-        # print(">>>>> handle bank function call <<<<<")
         print(f"You banked {self.round_total} points in round {self.round_num}")
+        self.bank.shelf(self.round_total)
         self.bank.bank()
         self.game_total += self.round_total
         print(f"Total score is {self.bank.balance} points")
         self.round_total = 0
-        self.dice_num = 6
-
-    # def handle_input(self):
-    #     # print(">>>>> handle input function call <<<<<")
-    #     response = input("> ")
-    #     if response == "r":
-    #         self.handle_roll()
-    #         if self.zilch:
-    #             # print("zilch true inside handle_input")
-    #             pass
-    #         self.get_user_kept()
-    #     elif response == "b":
-    #         self.handle_bank()
-    #         self.in_round = False
-    #     else:
-    #         self.thanks_for_playing()
-    #         self.game_lost = True
 
     def play_turn(self):
+
         self.dice_num = 6
         self.print_start_round()
-        while True:
-            self.handle_roll()
+        self.round_lost = False
+        self.zilch = False
 
-            if self.handle_zilch():
-                return
+        while self.round_lost is False:
+            while True:
+                self.handle_roll()
+                self.handle_zilch()
+                if self.zilch is True:
+                    self.round_lost = True
+                    break
 
-            self.get_user_kept()
-            self.continue_round()
+                self.get_dice_to_keep()
 
-            if self.dice_num == 0:
-                self.dice_num = 6
+                self.continue_round()
+                if self.dice_num == 0:
+                    self.dice_num = 6
 
-            response = input("> ")
-            if response == 'b':
-                self.thanks_for_playing()
-            elif response == 'b':
-                return
+                response = input("> ")
+                if response == 'q':
+                    self.thanks_for_playing()
+                elif response == 'b':
+                    self.handle_bank()
+                    return
 
 if __name__ == "__main__":
     game = Game()
