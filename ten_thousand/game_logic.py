@@ -34,7 +34,7 @@ class GameLogic:
         input_most_common = Counter(user_input).most_common()
         for i in range(len(input_most_common)):
             if input_most_common[i][1] > roll_most_common[i][1]:
-                print("Cheater!!! Or possibly made a typo...")
+                # print("Cheater!!! Or possibly made a typo...")
                 return False
             else:
                 return True
