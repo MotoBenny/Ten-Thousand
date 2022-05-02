@@ -2,14 +2,14 @@ import pytest
 from tests.flo import diff
 from ten_thousand.game import Game
 
-# @pytest.mark.skip("TODO")
+# @pytest.mark.skip("passing")
 def test_quitter():
     game = Game()
     diffs = diff(game.play, path="tests/version_2/quitter.sim.txt")
     assert not diffs, diffs
 
 
-# @pytest.mark.skip("TODO")
+# @pytest.mark.skip("passing")
 def test_one_and_done():
     game = Game()
     diffs = diff(game.play, path="tests/version_2/one_and_done.sim.txt")
